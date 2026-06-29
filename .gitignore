@@ -1,0 +1,30 @@
+# ===== Data — NEVER commit (confidential MLS data) =====
+data/
+*.csv
+*.xlsx
+*.parquet
+
+# ===== Trained models (large binary files) =====
+models/
+*.pkl
+*.joblib
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== Environment / secrets =====
+.env
+*.env
+
+# ===== OS / editor clutter =====
+.DS_Store
+.vscode/
+.idea/
