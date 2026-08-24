@@ -47,7 +47,7 @@ The project follows a staged pipeline, each phase building on the last:
 6. **Geo Clustering** — KMeans on coordinates as a location feature
 7. **Advanced Models** — XGBoost and LightGBM with hyperparameter tuning
 
-_Current status: pipeline complete through notebook 07. Best model is a tuned LightGBM at R² 0.9400._
+_Current status: pipeline complete through notebook 08. Best model is a tuned LightGBM with school district features at R² 0.9431._
 
 
 ---
@@ -121,7 +121,8 @@ test month (2026-06, 12,851 properties).
 | Random Forest      | 0.8979 | 0.1525 | 0.1023 |
 | XGBoost            | 0.9244 | 0.1347 | 0.0914 |
 | LightGBM           | 0.9294 | 0.1301 | 0.0894 |
-| **LightGBM (tuned)** | **0.9400** | **0.1176** | **0.0776** |
+| LightGBM (tuned)   | 0.9400 | 0.1176 | 0.0776 |
+| **+ School Districts** | **0.9431** | **0.1143** | **0.0757** |
 
 **Best model:** LightGBM with `num_leaves=127, learning_rate=0.05, n_estimators=1000, min_child_samples=50`
 
@@ -173,6 +174,24 @@ Documented because negative results are still results:
   population density distribution.
 
 Gradient boosting delivered far larger gains than any feature engineering attempt.
+
+---
+
+## What Did Work: School District Features
+
+Spatially joining each property to its CA school district (2024-25 boundaries)
+and attaching three district-level attributes — total enrollment, % socioeconomically
+disadvantaged, % English learners — improved every metric.
+
+Feature importance ranked these three columns 7th, 9th, and 14th out of 4,000 features.
+
+This contrasts sharply with the failed KMeans geo clustering: arbitrary geometric
+clusters carry no information beyond position, while school district boundaries
+follow real community lines and come with demographics that correlate directly
+with price.
+
+District identity was added as numeric attributes rather than one-hot encoded
+names — 937 districts would have added ~900 columns for no additional gain.
 
 ---
 
